@@ -67,8 +67,8 @@
             let vidTitle = curr.snippet.title;
             let medThumbnail = curr.snippet.thumbnails.medium.url;
             let vidURL = 'https://www.youtube.com/watch?v='+curr.contentDetails.videoId;
-            let markup=`<a href ='${vidURL}}' target='_blank'><center><img src='${medThumbnail}' width="150px"/></center><br>${vidTitle}<br>`;
-            
+            let markup=`<a href ='${vidURL}}' target='_blank'><center><img src='${medThumbnail}' width="100%"/></center><br>${vidTitle}<br>`;
+            //console.log(curr);
             arrayVids.push(markup);
            
              });
