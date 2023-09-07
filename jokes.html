@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Shainu - How To Videos</title>
-    <link rel="icon" type="image/x-icon" href="/images/S Logo.png">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-     <style>
-      @import url("bootstrapstyle.css");
-     
-    </style>
-  </head>
-  <body>
-    <div class="jumbotron jumbotron-fluid">
+   <head>
+      <title>Shainu - How To Videos</title>
+      <link rel="icon" type="image/x-icon" href="/images/S Logo.png">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+         @import url("bootstrapstyle.css");
+      </style>
+   </head>
+   <body>
+      <div class="jumbotron jumbotron-fluid">
+         <div class="container">
+            <img align="middle" style='border-radius: 50%; background-color: #ffffff;' src="images/laugh.png" width="30%"> 
+            </header>
+         </div>
+      </div>
+      <div class="sidenav" id="sidenav" >
+         <a href="http://thegreatshainu.github.io">Home &#127969;</a>
+         <a href="http://thegreatshainu.blogspot.com">Blog &#128221</a>
+         <a href="http://youtube.com/Shainu">YouTube &#128249</a>
+         <a href="https://venmo.com/Shainu">Donate &#127867</a>
+      </div>
       <div class="container">
-        <img align="middle" style='border-radius: 50%; background-color: #ffffff;' src="images/laugh.png" width="30%"> 
-          
-        </header>
-      </div>      
-    </div>
-    
-    <div class="sidenav" id="sidenav" >
-      <a href="http://thegreatshainu.github.io">Home &#127969;</a>
-      <a href="http://thegreatshainu.blogspot.com">Blog &#128221</a>
-      <a href="http://youtube.com/Shainu">YouTube &#128249</a>
-      <a href="https://venmo.com/Shainu">Donate &#127867</a>
-  </div>
-  
-  <div class="container">
-  <div id="joke">
-    <font size="25"><b>Set-Up: </b></font><font size="10" id="setup"></font><br><br>
-    <font size="25"><b>Delivery: </b></font><font size="10" id="delivery"></font> 
-  </div>
-
-  <p style="padding: 1%;"></p>
-  <button type="button" class="btn btn-primary btn-lg btn-block" id="next-joke">Next Joke</button>
-  <p style="padding-bottom: 40%;"></p>
-
-</div>
-    <div class="footer">
-      <center> Copyright © 2023 Shainu. <br> All rights reserved. <br>
-      </center>
-      <script type="text/javascript">
-        var joke = document.getElementById("joke");
-      
-        fetch('https://v2.jokeapi.dev/joke/Any?safe-mode')
-        .then(res => {
-          return res.json();
-        })
-        .then(data=>{
-          var selector = document.querySelector("#joke");
-          selector.querySelector("#setup").innerHTML = data.setup;
-          selector.querySelector("#delivery").innerHTML = data.delivery;
-        })
-
-        function nextJoke() {
-            window.location.reload(true);
-          }
-
-        const nextJokeButton = document.getElementById("next-joke");
-        nextJokeButton.addEventListener("click", nextJoke);
-
-      </script>
-    </div>
-  </body>
+         <div id="joke">
+            <font size="25"><b>Set-Up: </b></font><font size="10" id="setup"></font><br><br>
+            <font size="25"><b>Delivery: </b></font><font size="10" id="delivery"></font> 
+         </div>
+         <p style="padding: 1%;"></p>
+         <button type="button" class="btn btn-primary btn-lg btn-block" id="next-joke">Next Joke</button>
+         <p style="padding-bottom: 40%;"></p>
+      </div>
+      <div class="footer">
+         <center> Copyright © 2023 Shainu. <br> All rights reserved. <br>
+         </center>
+         <script type="text/javascript">
+            var joke = document.getElementById("joke");
+            
+            fetch('https://v2.jokeapi.dev/joke/Any?safe-mode')
+            .then(res => {
+                return res.json();
+            
+            })
+            .then(data=>{
+              if(!data.setup){
+                window.location.reload(true);
+              } 
+              
+              else{
+              var selector = document.querySelector("#joke");
+              selector.querySelector("#setup").innerHTML = data.setup;
+              selector.querySelector("#delivery").innerHTML = data.delivery;}
+            })
+            
+            function nextJoke() {
+                window.location.reload(true);
+              }
+            
+            const nextJokeButton = document.getElementById("next-joke");
+            nextJokeButton.addEventListener("click", nextJoke);
+            
+            
+            
+         </script>
+      </div>
+   </body>
 </html>
