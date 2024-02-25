@@ -1,188 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shainu ♥ Amala</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Caveat:wght@400..700&family=MonteCarlo&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shainu ♥ Amala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anta&family=Caveat:wght@400..700&family=MonteCarlo&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
 
-      .navbar {
-        background-color: #5F735B;
-        overflow: hidden;
-        text-align: center;
-        white-space: nowrap;
-      }
+  .navbar {
+    background-color: #5F735B;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+  }
 
-      .navbar a {
-        display: inline-block;
-        color: #fff;
-        text-align: center;
-        padding: 10px 15px;
-        text-decoration: none;
-        font-family: "Anta", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-      }
+  .navbar a {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
-      .navbar a:hover {
-        background-color: #ADC398;
-      }
+  .navbar a.active {
+    background-color: #ADC398;
+  }
 
-      .navbar a.active {
-        background-color: #ADC398
-      }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    padding: 0;
+    /* Remove padding */
+  }
 
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-        padding: 0;
-        /* Remove padding */
-      }
+  .photo {
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
 
-      .photo {
-        width: 100%;
-        height: 100%;
-        margin: 10px;
-        cursor: pointer;
-        overflow: hidden;
-        position: relative;
-      }
+  .photo-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.8;
+    pointer-events: none;
+  }
 
-      .photo-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: #fff;
-        font-size: 16px;
-        opacity: 0.8;
-        pointer-events: none;
-      }
+  .inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+  }
 
-      .inner {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        transform-style: preserve-3d;
-      }
+  .photo.flip .inner {
+    transform: rotateY(-180deg);
+  }
 
-      .photo.flip .inner {
-        transform: rotateY(-180deg);
-      }
+  .front,
+  .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-      .front,
-      .back {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        backface-visibility: hidden;
-        background-color: white;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  .back {
+    transform: rotateY(-180deg);
+  }
 
-      .back {
-        transform: rotateY(-180deg);
-      }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
 
-      img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        border-radius: 8px;
-      }
+  .dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
 
-      .dialog {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        justify-content: center;
-        align-items: center;
-      }
+  .dialog img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 8px;
+    position: relative;
+  }
 
-      .dialog img {
-        max-width: 80%;
-        max-height: 80%;
-        border-radius: 8px;
-        position: relative;
-      }
-
-      .close-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-        width: 25px;
-        /* Adjust the size of the close icon */
-        transform: translate(50%, -50%);
-        /* Adjust to align with top right border */
-      }
-    </style>
-  </head>
-  <body>
-    <div class="navbar">
-      <a class="active" href="https://www.shainu.in/save">Home</a>
-      <a href="#" onclick="openDialog()">Our Love Story</a>
-      <a href="https://www.amazon.com/wedding/share/ShainuandAmala" target="_blank">Honeymoon Fund</a>
-    </div>
-    <div class="container">
-      <div class="photo" id="photo1" onclick="flipPhoto(this)">
-        <div class="photo-text">Click to flip</div>
-        <div class="inner">
-          <div class="front">
-            <img src="images/1.png" alt="Photo 1">
-          </div>
-          <div class="back">
-            <img src="images/2.png" alt="Photo 2">
-          </div>
-        </div>
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    width: 25px;
+    /* Adjust the size of the close icon */
+    transform: translate(50%, -50%);
+    /* Adjust to align with top right border */
+  }
+</style>
+</head>
+<body>
+<div class="navbar">
+  <a class="active" href="https://www.shainu.in/save">Home</a>
+  <a href="#" onclick="openDialog()">Our Love Story</a>
+  <a id="honeymoon-fund" href="https://www.amazon.com/wedding/share/ShainuandAmala" target="_blank">Honeymoon Fund</a>
+</div>
+<div class="container">
+  <div class="photo" id="photo1" onclick="flipPhoto(this)">
+    <div class="photo-text">Click to flip</div>
+    <div class="inner">
+      <div class="front">
+        <img src="images/1.png" alt="Photo 1">
+      </div>
+      <div class="back">
+        <img src="images/2.png" alt="Photo 2">
       </div>
     </div>
-    <div class="dialog" id="dialog">
-      <img src="images/save.png" alt="Save">
-      <img class="close-icon" src="images/close.png" alt="Close" onclick="closeDialog()">
-    </div>
-    <script>
-      function flipPhoto(photo) {
-        photo.classList.toggle('flip');
-      }
-      // Automatically flip the first photo after 4 seconds
-      setTimeout(function() {
-        var photo = document.getElementById('photo1');
-        flipPhoto(photo);
-      }, 4000);
-      // Automatically flip the second photo after 20 seconds
-      setTimeout(function() {
-        var photo = document.getElementById('photo1');
-        flipPhoto(photo);
-      }, 20000);
+  </div>
+</div>
+<div class="dialog" id="dialog">
+  <img src="images/save.png" alt="Save">
+  <img class="close-icon" src="images/close.png" alt="Close" onclick="closeDialog()">
+</div>
+<script>
+  function flipPhoto(photo) {
+    photo.classList.toggle('flip');
+  }
+  // Automatically flip the first photo after 4 seconds
+  setTimeout(function() {
+    var photo = document.getElementById('photo1');
+    flipPhoto(photo);
+  }, 4000);
+  // Automatically flip the second photo after 20 seconds
+  setTimeout(function() {
+    var photo = document.getElementById('photo1');
+    flipPhoto(photo);
+  }, 20000);
 
-      function openDialog() {
-        document.getElementById('dialog').style.display = 'flex';
-      }
+  function openDialog() {
+    document.getElementById('dialog').style.display = 'flex';
+  }
 
-      function closeDialog() {
-        document.getElementById('dialog').style.display = 'none';
-      }
-    </script>
-  </body>
+  function closeDialog() {
+    document.getElementById('dialog').style.display = 'none';
+  }
+
+  // Change font color of "Honeymoon Fund" link from an array of colors
+  var colors = ['#00FFFF', '#FFFF00', '#FF6F61', '#E6E6FA', '#00FF00'];
+  var index = 0;
+  setInterval(function() {
+    document.getElementById('honeymoon-fund').style.color = colors[index];
+    index = (index + 1) % colors.length;
+  }, 1000); // Change color every second
+</script>
+</body>
 </html>
